@@ -26,6 +26,10 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--background);
@@ -55,13 +59,14 @@
             width: 100%;
             z-index: 1000;
             transition: all 0.3s ease;
+            padding: 10px 0;
         }
         
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 0;
+            padding: 5px 0;
         }
         
         .logo {
@@ -71,38 +76,43 @@
             text-decoration: none;
         }
         
-        .logo-icon {
-            width: 55px;
-            height: 55px;
-            background-color: var(--light-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .logo-img {
+            height: 70px;
+            width: auto;
+            transition: transform 0.3s ease;
         }
         
-        .logo-icon i {
-            color: var(--primary-green);
-            font-size: 28px;
+        .logo-img:hover {
+            transform: scale(1.05);
         }
         
         .logo-text h1 {
-            font-size: 26px;
+            font-size: 24px;
             color: var(--white);
             letter-spacing: 0.5px;
         }
         
         .logo-text p {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--light-green);
             letter-spacing: 0.3px;
+        }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
         }
         
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
         
         nav a {
@@ -144,11 +154,11 @@
         
         .corner-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
         
         .corner-btn {
-            padding: 10px 20px;
+            padding: 10px 18px;
             background-color: rgba(255, 255, 255, 0.15);
             border: none;
             border-radius: 30px;
@@ -161,6 +171,7 @@
             gap: 8px;
             color: var(--white);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
         }
         
         .corner-btn:hover {
@@ -651,64 +662,6 @@
             color: #D1FAE5;
         }
         
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal-content {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            animation: modalSlideIn 0.4s ease;
-        }
-        
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .modal h3 {
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .modal p {
-            margin-bottom: 25px;
-            color: var(--text-light);
-        }
-        
-        .close-modal {
-            background-color: var(--secondary-green);
-            color: var(--white);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .close-modal:hover {
-            background-color: var(--primary-green);
-        }
-        
         /* Leaf Decorations */
         .leaf-decoration {
             position: absolute;
@@ -730,6 +683,28 @@
             transform: rotate(-30deg);
         }
         
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h2 {
@@ -743,19 +718,64 @@
             .mission-cards {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
+            
+            .tab {
+                padding: 20px 15px;
+                font-size: 16px;
+            }
         }
         
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 20px;
-                padding: 15px 0;
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
             
             nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: column;
                 gap: 15px;
+            }
+            
+            nav a {
+                display: block;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo-img {
+                height: 60px;
+            }
+            
+            .logo-text h1 {
+                font-size: 20px;
+            }
+            
+            .logo-text p {
+                font-size: 11px;
             }
             
             .hero {
@@ -785,11 +805,19 @@
             .corner-buttons {
                 margin-top: 10px;
             }
+            
+            .join-container {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 480px) {
             .hero h2 {
                 font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
             }
             
             .section-title h2 {
@@ -801,46 +829,82 @@
             }
             
             .tab-content {
-                padding: 30px;
+                padding: 30px 20px;
             }
             
             .org-info {
-                padding: 30px;
+                padding: 30px 20px;
+            }
+            
+            .join-form {
+                padding: 30px 20px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .logo-img {
+                height: 50px;
+            }
+            
+            .corner-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .logo-text h1 {
+                font-size: 18px;
+            }
+            
+            .hero h2 {
+                font-size: 24px;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Header with navigation -->
-    <header>
+    <header id="header">
         <div class="container header-container">
-            <a href="#home" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
+            <a href="https://bluv-developer.github.io/Kinders/" class="logo">
+                <img src="https://ik.imagekit.io/tycncf0zq0/Kinders.png" alt="Kinders Operation Logo" class="logo-img">
                 <div class="logo-text">
                     <h1>Kinders Operation</h1>
                     <p>Darby Middle School, Fort Smith, Arkansas</p>
                 </div>
             </a>
             
-            <nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
                 <ul>
-                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="https://bluv-developer.github.io/Kinders/" class="active">Home</a></li>
+                    <li><a href="https://bluv-developer.github.io/Kinders/About">About</a></li>
+                    <li><a href="https://bluv-developer.github.io/Kinders/Extra">Extra</a></li>
                     <li><a href="#mission">Mission</a></li>
                     <li><a href="#programs">Programs</a></li>
-                    <li><a href="#organization">Organization</a></li>
-                    <li><a href="#join">Join Us</a></li>
+                    <li><a href="#join">Join</a></li>
                 </ul>
             </nav>
             
             <div class="corner-buttons">
-                <button class="corner-btn staff" id="staffBtn">
+                <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn staff" id="staffBtn">
                     <i class="fas fa-users"></i> Staff
-                </button>
-                <button class="corner-btn extra" id="extraBtn">
+                </a>
+                <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra" id="extraBtn">
                     <i class="fas fa-plus-circle"></i> Extra
-                </button>
+                </a>
             </div>
         </div>
     </header>
@@ -863,22 +927,22 @@
     <!-- Mission Section -->
     <section id="mission">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Our Core Mission</h2>
                 <p>Empowering students to create a culture of kindness through peer-led action and empathy-driven initiatives</p>
             </div>
             <div class="mission-cards">
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <i class="fas fa-bullseye"></i>
                     <h3>Combat Bullying</h3>
                     <p>Address and combat bullying within the school environment using peer-led action, promoting a culture where kindness is the primary response.</p>
                 </div>
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <i class="fas fa-user-friends"></i>
                     <h3>Empower Students</h3>
                     <p>Believe that true, lasting change requires empowering students to lead with empathy, going beyond administrative actions.</p>
                 </div>
-                <div class="mission-card">
+                <div class="mission-card fade-in">
                     <i class="fas fa-shield-alt"></i>
                     <h3>Create Safe Spaces</h3>
                     <p>Foster a positive atmosphere where every student feels safe, respected, and valued through peer-enforced safe spaces.</p>
@@ -890,7 +954,7 @@
     <!-- Programs Section -->
     <section id="programs">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Key Activities & Programs</h2>
                 <p>Practical, peer-level initiatives to build a positive community and combat bullying</p>
             </div>
@@ -946,11 +1010,11 @@
     <!-- Organization Section -->
     <section id="organization">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Our Organization</h2>
                 <p>Understanding the student-led structure and independence of the Kinders Operation</p>
             </div>
-            <div class="org-info">
+            <div class="org-info fade-in">
                 <h3>Student-Led and Managed</h3>
                 <p>Kinders was created and is solely managed by one student, Elijah Shepherd (the "Operation Lead"), with the help of a Kinders Staff and Kinders Helpers (collectively referred to as "Kindes").</p>
                 
@@ -968,12 +1032,12 @@
     <!-- Join Section -->
     <section id="join">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Join the Movement</h2>
                 <p>Become part of the solution and help create a kinder, safer school environment</p>
             </div>
             <div class="join-container">
-                <div class="join-text">
+                <div class="join-text fade-in">
                     <h3>Become a Kindeer</h3>
                     <p>Kinders seeks to recruit more students (Kindes/Helpers) to its team. We're looking for students who "see the problem and believe in the power of peers" to create positive change.</p>
                     <p>As a Kindeer, you'll have the opportunity to:</p>
@@ -988,7 +1052,7 @@
                     <p>Fill out the form to express your interest in joining Kinders. Our Operation Lead will contact you with next steps.</p>
                 </div>
                 
-                <div class="join-form">
+                <div class="join-form fade-in">
                     <h3>Apply to Join Kinders</h3>
                     <form id="applicationForm">
                         <div class="form-group">
@@ -1026,7 +1090,7 @@
     <footer>
         <div class="container">
             <div class="footer-container">
-                <div class="footer-section">
+                <div class="footer-section fade-in">
                     <h3>Kinders Operation</h3>
                     <p>A student-led movement promoting kindness and combating bullying at Darby Middle School in Fort Smith, Arkansas.</p>
                     <div class="social-icons">
@@ -1037,18 +1101,18 @@
                     </div>
                 </div>
                 
-                <div class="footer-section">
+                <div class="footer-section fade-in">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="https://bluv-developer.github.io/Kinders/"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="https://bluv-developer.github.io/Kinders/About"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="https://bluv-developer.github.io/Kinders/Extra"><i class="fas fa-plus-circle"></i> Extra</a></li>
                         <li><a href="#mission"><i class="fas fa-bullseye"></i> Our Mission</a></li>
-                        <li><a href="#programs"><i class="fas fa-tasks"></i> Programs</a></li>
-                        <li><a href="#organization"><i class="fas fa-users"></i> Organization</a></li>
                         <li><a href="#join"><i class="fas fa-user-plus"></i> Join Us</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
+                <div class="footer-section fade-in">
                     <h3>Core Values</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-heart"></i> Kindness as a weapon</a></li>
@@ -1060,23 +1124,33 @@
                 </div>
             </div>
             
-            <div class="copyright">
+            <div class="copyright fade-in">
                 <p>Kinders Operation is a student-led initiative. Not officially affiliated with Darby Middle School.</p>
                 <p>Website created for demonstration purposes. &copy; 2023 Kinders Operation</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal for buttons without links -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle">Placeholder</h3>
-            <p id="modalText">This section is under development. The content for this button will be added soon.</p>
-            <button class="close-modal" id="closeModal">Close</button>
-        </div>
-    </div>
-
     <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
         // Tab functionality for programs section
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', function() {
@@ -1110,116 +1184,114 @@
             this.reset();
         });
         
-        // Modal functionality for corner buttons
-        const staffBtn = document.getElementById('staffBtn');
-        const extraBtn = document.getElementById('extraBtn');
-        const modal = document.getElementById('modal');
-        const closeModal = document.getElementById('closeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
+        // Scroll animation for fade-in elements
+        const fadeElements = document.querySelectorAll('.fade-in');
         
-        staffBtn.addEventListener('click', function() {
-            modalTitle.textContent = 'Staff Section';
-            modalText.textContent = 'The staff directory and information section is currently under development. This area will feature profiles of the Kinders Operation Lead (Elijah Shepherd), Kinders Staff, and Kinders Helpers. Check back soon for updates!';
-            modal.style.display = 'flex';
-        });
-        
-        extraBtn.addEventListener('click', function() {
-            modalTitle.textContent = 'Extra Resources';
-            modalText.textContent = 'Additional resources, materials, and supplementary content for the Kinders Operation will be available here soon. This section may include downloadable materials, event calendars, news updates, success stories, and more resources to support our mission.';
-            modal.style.display = 'flex';
-        });
-        
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    // Update active nav link
-                    document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
                 }
             });
-        });
+        };
         
-        // Smooth scrolling for CTA button
-        document.querySelector('.cta-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            window.scrollTo({
-                top: targetSection.offsetTop - 100,
-                behavior: 'smooth'
-            });
-            
-            // Update active nav link
-            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-            document.querySelector('nav a[href="#join"]').classList.add('active');
-        });
+        // Initial check
+        fadeInOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', fadeInOnScroll);
         
         // Header scroll effect
         window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
+            const header = document.getElementById('header');
             if (window.scrollY > 100) {
-                header.style.padding = '5px 0';
+                header.style.padding = '0';
                 header.style.boxShadow = '0 4px 20px rgba(4, 120, 87, 0.3)';
             } else {
-                header.style.padding = '0';
+                header.style.padding = '10px 0';
                 header.style.boxShadow = '0 4px 20px rgba(4, 120, 87, 0.2)';
             }
         });
         
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        const highlightNavOnScroll = () => {
+            let scrollY = window.pageYOffset;
+            
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 150;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+                
+                if (navLink) {
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        navLink.classList.add('active');
+                    } else {
+                        navLink.classList.remove('active');
+                    }
                 }
             });
-        }, observerOptions);
+        };
         
-        // Observe mission cards for animation
+        window.addEventListener('scroll', highlightNavOnScroll);
+        
+        // Home link special handling
+        const homeLinks = document.querySelectorAll('a[href="https://bluv-developer.github.io/Kinders/"]');
+        const currentUrl = window.location.href;
+        
+        // If we're on the home page, make home link scroll to top
+        if (currentUrl.includes('Kinders') && !currentUrl.includes('Kinders/About') && !currentUrl.includes('Kinders/Extra')) {
+            homeLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.hash === '') {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active nav links
+                        document.querySelectorAll('nav a').forEach(navLink => navLink.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        // Add animation to mission cards on hover
         document.querySelectorAll('.mission-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
         });
         
-        // Observe section titles
-        document.querySelectorAll('.section-title').forEach(title => {
-            title.style.opacity = '0';
-            title.style.transform = 'translateY(30px)';
-            title.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(title);
+        // Add pulse animation to CTA button
+        const ctaButton = document.querySelector('.cta-button');
+        setInterval(() => {
+            ctaButton.classList.toggle('pulse');
+        }, 4000);
+        
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trigger initial fade-in check
+            fadeInOnScroll();
+            
+            // Add loading animation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
