@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinders Operation - Darby Middle School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #ff8c42;
+            --accent-color: #6b9ac4;
+            --light-color: #f8f9fa;
+            --dark-color: #333;
+            --success-color: #5cb85c;
+            --danger-color: #d9534f;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .logo-text p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .corner-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .corner-btn {
+            padding: 8px 15px;
+            background-color: var(--light-color);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .corner-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .corner-btn.staff {
+            color: var(--primary-color);
+        }
+        
+        .corner-btn.extra {
+            color: var(--secondary-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(74, 111, 165, 0.9), rgba(107, 154, 196, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        /* Mission Section */
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .mission-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mission-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        /* Programs Section */
+        .programs-container {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-tabs {
+            display: flex;
+            background-color: #f1f5f9;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .tab-content {
+            padding: 40px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Organization Section */
+        .org-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+        
+        .disclaimer {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* Join Section */
+        .join-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .join-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .join-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #3a5a8a;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #ddd;
+        }
+        
+        /* Modal for buttons without links */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .close-modal {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .program-tabs {
+                flex-direction: column;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Kinders Operation</h1>
+                    <p>Darby Middle School, Fort Smith, Arkansas</p>
+                </div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#mission">Mission</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#organization">Organization</a></li>
+                    <li><a href="#join">Join Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="corner-buttons">
+                <button class="corner-btn staff" id="staffBtn"><i class="fas fa-users"></i> Staff</button>
+                <button class="corner-btn extra" id="extraBtn"><i class="fas fa-plus-circle"></i> Extra</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Kindness is Our Weapon</h2>
+            <p>A student-led movement at Darby Middle School promoting kindness, safety, and a positive atmosphere to combat bullying among peers.</p>
+            <a href="#join" class="cta-button">Join the Movement</a>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission">
+        <div class="container">
+            <h2 class="section-title">Our Core Mission</h2>
+            <div class="mission-cards">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Combat Bullying</h3>
+                    <p>Address and combat bullying within the school environment using peer-led action, promoting a culture where kindness is the primary response.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Empower Students</h3>
+                    <p>Believe that true, lasting change requires empowering students to lead with empathy, going beyond administrative actions.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Create Safe Spaces</h3>
+                    <p>Foster a positive atmosphere where every student feels safe, respected, and valued through peer-enforced safe spaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs">
+        <div class="container">
+            <h2 class="section-title">Key Activities & Programs</h2>
+            <div class="programs-container">
+                <div class="program-tabs">
+                    <div class="tab active" data-tab="deed">Good Deed Challenge</div>
+                    <div class="tab" data-tab="community">Community Builders</div>
+                    <div class="tab" data-tab="disarm">Disarming the Bully</div>
+                </div>
+                
+                <div class="tab-content active" id="deed-content">
+                    <h3>The Good Deed Challenge</h3>
+                    <p>Students are actively encouraged to perform at least one intentional act of kindness daily. These can include:</p>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li>Holding doors open for others</li>
+                        <li>Giving genuine compliments to classmates</li>
+                        <li>Helping a classmate with schoolwork</li>
+                        <li>Sitting with someone who is alone at lunch</li>
+                        <li>Standing up for someone being treated unfairly</li>
+                    </ul>
+                    <p style="margin-top: 15px;">This program creates a ripple effect of kindness throughout the school, making compassion a daily habit.</p>
+                </div>
+                
+                <div class="tab-content" id="community-content">
+                    <h3>Informal Community Builders</h3>
+                    <p>The Kinders team plans and hosts informal, fun activities outside of the standard school curriculum to break down social barriers and build stronger relationships between different groups of students.</p>
+                    <p>Activities include:</p>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li>Lunchtime games and social mixers</li>
+                        <li>After-school hobby clubs</li>
+                        <li>Peer mentorship programs</li>
+                        <li>Collaborative art projects promoting unity</li>
+                        <li>Community service projects</li>
+                    </ul>
+                </div>
+                
+                <div class="tab-content" id="disarm-content">
+                    <h3>Disarming the Bully: The Reaction Principle</h3>
+                    <p>A core advocacy effort that focuses on empowering victims and bystanders with strategies to neutralize bullying behavior by teaching them how not to react, thereby removing the bully's source of power.</p>
+                    <p>Key components include:</p>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li>Teaching non-reactive responses to bullying</li>
+                        <li>Empowering bystanders to intervene safely</li>
+                        <li>Building confidence in potential targets</li>
+                        <li>Creating peer-enforced safe spaces</li>
+                        <li>Workshops on conflict de-escalation techniques</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organization Section -->
+    <section id="organization">
+        <div class="container">
+            <h2 class="section-title">Our Organization</h2>
+            <div class="org-info">
+                <h3>Student-Led and Managed</h3>
+                <p>Kinders was created and is solely managed by one student, Elijah Shepherd (the "Operation Lead"), with the help of a Kinders Staff and Kinders Helpers (collectively referred to as "Kindes").</p>
+                
+                <div class="disclaimer">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h4>
+                    <p>Kinders is explicitly <strong>NOT</strong> created, managed, or formally affiliated with Darby Middle School. All activities are carried out by the students in a private, non-official capacity.</p>
+                </div>
+                
+                <p>The initiative operates under the belief that administrative actions alone are insufficient and that true, lasting change requires empowering students to lead with empathy and take ownership of their school's social environment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join">
+        <div class="container">
+            <h2 class="section-title">Join the Movement</h2>
+            <div class="join-container">
+                <div class="join-text">
+                    <h3>Become a Kindeer</h3>
+                    <p>Kinders seeks to recruit more students (Kindes/Helpers) to its team. We're looking for students who "see the problem and believe in the power of peers" to create positive change.</p>
+                    <p>As a Kindeer, you'll have the opportunity to:</p>
+                    <ul style="margin-left: 20px; margin-top: 15px; margin-bottom: 20px;">
+                        <li>Participate in leadership training</li>
+                        <li>Help plan and run Kinders activities</li>
+                        <li>Be a positive role model in your school</li>
+                        <li>Make a real difference in your community</li>
+                    </ul>
+                    <p>Fill out the form to express your interest in joining Kinders. Our Operation Lead will contact you with next steps.</p>
+                </div>
+                
+                <div class="join-form">
+                    <h3>Apply to Join Kinders</h3>
+                    <form id="applicationForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">Grade Level</label>
+                            <input type="text" id="grade" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reason">Why do you want to join Kinders?</label>
+                            <textarea id="reason" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Application</button>
+                    </form>
+                    <p style="margin-top: 15px; font-size: 14px; color: #666;">Note: This is a demonstration form. In practice, applicants would be directed to an external Google Form.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Kinders Operation</h3>
+                    <p>A student-led movement promoting kindness and combating bullying at Darby Middle School in Fort Smith, Arkansas.</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Darby Middle School, Fort Smith, AR</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#mission">Our Mission</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#organization">Organization</a></li>
+                        <li><a href="#join">Join Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Core Values</h3>
+                    <ul class="footer-links">
+                        <li>Kindness as a weapon</li>
+                        <li>Peer-led action</li>
+                        <li>Empathy and understanding</li>
+                        <li>Student empowerment</li>
+                        <li>Creating safe spaces</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>Kinders Operation is a student-led initiative. Not officially affiliated with Darby Middle School.</p>
+                <p>Website created for demonstration purposes. &copy; 2023 Kinders Operation</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for buttons without links -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Placeholder</h3>
+            <p id="modalText">This section is under development. The content for this button will be added soon.</p>
+            <button class="close-modal" id="closeModal">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality for programs section
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and tab contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const grade = document.getElementById('grade').value;
+            
+            // Show success message
+            alert(`Thank you, ${name}! Your application to join Kinders has been submitted. Students in grade ${grade} are especially valuable to our team. In a real implementation, you would be redirected to a Google Form.`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Modal functionality for corner buttons
+        const staffBtn = document.getElementById('staffBtn');
+        const extraBtn = document.getElementById('extraBtn');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        
+        staffBtn.addEventListener('click', function() {
+            modalTitle.textContent = 'Staff Section';
+            modalText.textContent = 'The staff directory and information section is currently under development. This area will feature profiles of the Kinders Operation Lead (Elijah Shepherd), Kinders Staff, and Kinders Helpers. Check back soon for updates!';
+            modal.style.display = 'flex';
+        });
+        
+        extraBtn.addEventListener('click', function() {
+            modalTitle.textContent = 'Extra Resources';
+            modalText.textContent = 'Additional resources, materials, and supplementary content for the Kinders Operation will be available here soon. This section may include downloadable materials, event calendars, news updates, and more.';
+            modal.style.display = 'flex';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Smooth scrolling for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            window.scrollTo({
+                top: targetSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
