@@ -18,6 +18,8 @@
             --text-dark: #1F2937;
             --text-light: #6B7280;
             --white: #FFFFFF;
+            --warning: #DC2626;
+            --warning-light: #FEE2E2;
         }
         
         * {
@@ -112,14 +114,14 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 20px;
         }
         
         nav a {
             text-decoration: none;
             color: var(--white);
             font-weight: 500;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s;
             padding: 8px 15px;
             border-radius: 25px;
@@ -155,6 +157,8 @@
         .corner-buttons {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .corner-btn {
@@ -184,8 +188,20 @@
             background-color: var(--accent-green);
         }
         
+        .corner-btn.programs {
+            background-color: #0EA5E9;
+        }
+        
         .corner-btn.extra {
             background-color: var(--secondary-green);
+        }
+        
+        .corner-btn.about {
+            background-color: #8B5CF6;
+        }
+        
+        .corner-btn.warning {
+            background-color: var(--warning);
         }
         
         .corner-btn i {
@@ -480,6 +496,73 @@
             margin-bottom: 10px;
         }
         
+        /* Warning Section - Leave Others */
+        .warning-section {
+            background-color: var(--warning-light);
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.1);
+            margin-top: 30px;
+            border: 3px solid var(--warning);
+        }
+        
+        .warning-section h3 {
+            color: var(--warning);
+            margin-bottom: 25px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .warning-section h3 i {
+            font-size: 32px;
+        }
+        
+        .warning-section p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+        
+        .warning-section ul {
+            margin-left: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .warning-section li {
+            margin-bottom: 12px;
+            font-size: 17px;
+            padding-left: 10px;
+        }
+        
+        .alert-box {
+            background-color: #FECACA;
+            border-left: 5px solid var(--warning);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .alert-box h4 {
+            color: var(--warning);
+            margin-bottom: 15px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-box h4 i {
+            color: var(--warning);
+        }
+        
+        .alert-box p {
+            color: #7F1D1D;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
         /* Join Section */
         .join-container {
             display: flex;
@@ -705,7 +788,41 @@
             100% { transform: scale(1); }
         }
         
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Button Group */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            nav ul {
+                gap: 15px;
+            }
+            
+            .corner-buttons {
+                gap: 10px;
+            }
+            
+            .corner-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+        }
+        
         @media (max-width: 992px) {
             .hero h2 {
                 font-size: 42px;
@@ -722,6 +839,15 @@
             .tab {
                 padding: 20px 15px;
                 font-size: 16px;
+            }
+            
+            .corner-buttons {
+                gap: 8px;
+            }
+            
+            .corner-btn {
+                padding: 8px 12px;
+                font-size: 12px;
             }
         }
         
@@ -778,6 +904,10 @@
                 font-size: 11px;
             }
             
+            .corner-buttons {
+                display: none;
+            }
+            
             .hero {
                 padding: 150px 0 80px;
             }
@@ -802,12 +932,15 @@
                 padding: 70px 0;
             }
             
-            .corner-buttons {
-                margin-top: 10px;
+            .button-group {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .join-container {
-                flex-direction: column;
+            .button-group .corner-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
         }
         
@@ -832,7 +965,7 @@
                 padding: 30px 20px;
             }
             
-            .org-info {
+            .org-info, .warning-section {
                 padding: 30px 20px;
             }
             
@@ -848,11 +981,6 @@
             .logo-img {
                 height: 50px;
             }
-            
-            .corner-btn {
-                padding: 8px 15px;
-                font-size: 13px;
-            }
         }
         
         @media (max-width: 360px) {
@@ -867,6 +995,10 @@
             .cta-button {
                 padding: 15px 30px;
                 font-size: 16px;
+            }
+            
+            .logo-img {
+                height: 45px;
             }
         }
     </style>
@@ -891,19 +1023,25 @@
                 <ul>
                     <li><a href="https://bluv-developer.github.io/Kinders/" class="active">Home</a></li>
                     <li><a href="https://bluv-developer.github.io/Kinders/About">About</a></li>
+                    <li><a href="https://bluv-developer.github.io/Kinders/Programs">Programs</a></li>
                     <li><a href="https://bluv-developer.github.io/Kinders/Extra">Extra</a></li>
-                    <li><a href="#mission">Mission</a></li>
-                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#leave-others">Warnings</a></li>
                     <li><a href="#join">Join</a></li>
                 </ul>
             </nav>
             
             <div class="corner-buttons">
-                <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn staff" id="staffBtn">
-                    <i class="fas fa-users"></i> Staff
+                <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn about">
+                    <i class="fas fa-info-circle"></i> About
                 </a>
-                <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra" id="extraBtn">
+                <a href="https://bluv-developer.github.io/Kinders/Programs" class="corner-btn programs">
+                    <i class="fas fa-tasks"></i> Programs
+                </a>
+                <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra">
                     <i class="fas fa-plus-circle"></i> Extra
+                </a>
+                <a href="#leave-others" class="corner-btn warning">
+                    <i class="fas fa-exclamation-triangle"></i> Warnings
                 </a>
             </div>
         </div>
@@ -920,6 +1058,22 @@
         <div class="container">
             <h2 class="animate__animated animate__fadeInDown">Kindness is Our <span>Weapon</span></h2>
             <p class="animate__animated animate__fadeIn animate__delay-1s">A student-led movement at Darby Middle School promoting kindness, safety, and a positive atmosphere to combat bullying among peers.</p>
+            
+            <div class="button-group">
+                <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn about">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+                <a href="https://bluv-developer.github.io/Kinders/Programs" class="corner-btn programs">
+                    <i class="fas fa-tasks"></i> Our Programs
+                </a>
+                <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra">
+                    <i class="fas fa-plus-circle"></i> Extra Resources
+                </a>
+                <a href="#leave-others" class="corner-btn warning">
+                    <i class="fas fa-exclamation-triangle"></i> Important Warnings
+                </a>
+            </div>
+            
             <a href="#join" class="cta-button animate__animated animate__fadeInUp animate__delay-2s">Join the Movement</a>
         </div>
     </section>
@@ -1004,6 +1158,68 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="button-group" style="margin-top: 40px;">
+                <a href="https://bluv-developer.github.io/Kinders/Programs" class="corner-btn programs">
+                    <i class="fas fa-external-link-alt"></i> View All Programs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Warning Section: Leave Others -->
+    <section id="leave-others">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2 style="color: var(--warning);">Important Warning</h2>
+                <p>Beware of negative groups and cults operating in our school</p>
+            </div>
+            
+            <div class="warning-section fade-in">
+                <h3><i class="fas fa-skull-crossbones"></i> Warning About Cults & Negative Groups</h3>
+                
+                <p>There are currently cult-like groups operating at Darby Middle School that pose a serious threat to student safety and wellbeing. These groups present themselves as "operations" or "organized groups" but promote harmful ideologies and engage in disruptive behavior.</p>
+                
+                <div class="alert-box">
+                    <h4><i class="fas fa-exclamation-circle"></i> Specific Group Warning</h4>
+                    <p>We have received reports about a group being mass-emailed across Darby Middle School by Maddison (redacted last name) and Eden (redacted last name). This group has been identified as having cult-like characteristics:</p>
+                </div>
+                
+                <h4>Concerning Behaviors of This Group:</h4>
+                <ul>
+                    <li><strong>Threats of "Sacrifice":</strong> Members have reportedly threatened to "sacrifice" other students</li>
+                    <li><strong>False Worship:</strong> Promotes worship of other gods and deities not aligned with our community values</li>
+                    <li><strong>100% Negative Impact:</strong> Creates disruptions, fear, and negativity throughout the school</li>
+                    <li><strong>Religious Discrimination:</strong> Explicitly states Christians will be "kicked out" and excluded</li>
+                    <li><strong>Offensive Statements:</strong> Makes rude, offensive remarks against various religions and beliefs</li>
+                    <li><strong>Exclusionary Practices:</strong> Creates division rather than unity among students</li>
+                </ul>
+                
+                <div class="alert-box">
+                    <h4><i class="fas fa-shield-alt"></i> What To Do If Contacted</h4>
+                    <p>If you receive an email or invitation from this or any similar group:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>DO NOT RESPOND</strong> to the email or message</li>
+                        <li><strong>LEAVE IMMEDIATELY</strong> if you find yourself in one of their gatherings</li>
+                        <li><strong>REPORT</strong> the message to a trusted adult, teacher, or administrator</li>
+                        <li><strong>DELETE</strong> the email or message immediately</li>
+                        <li><strong>SPEAK UP</strong> - Tell your friends to avoid these groups</li>
+                    </ol>
+                </div>
+                
+                <p><strong>Kinders Operation stands against all forms of negativity, discrimination, and harmful groups.</strong> We promote inclusivity, kindness, and respect for all beliefs. Our mission is to create a safe, positive environment for every student at Darby Middle School.</p>
+                
+                <p>If you feel pressured or threatened by any group, please reach out to a trusted adult immediately. Your safety and wellbeing are our top priority.</p>
+                
+                <div class="button-group" style="margin-top: 30px;">
+                    <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn about">
+                        <i class="fas fa-info-circle"></i> Learn About Kinders
+                    </a>
+                    <a href="#join" class="corner-btn programs">
+                        <i class="fas fa-user-plus"></i> Join Our Positive Movement
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1025,6 +1241,15 @@
                 </div>
                 
                 <p>Our organization is built on the foundation of peer leadership, with students taking responsibility for creating the positive change they wish to see in their school community.</p>
+                
+                <div class="button-group" style="margin-top: 30px;">
+                    <a href="https://bluv-developer.github.io/Kinders/About" class="corner-btn about">
+                        <i class="fas fa-users"></i> Meet Our Team
+                    </a>
+                    <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra">
+                        <i class="fas fa-file-alt"></i> Organization Details
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1050,6 +1275,15 @@
                         <li>Build lasting friendships with like-minded peers</li>
                     </ul>
                     <p>Fill out the form to express your interest in joining Kinders. Our Operation Lead will contact you with next steps.</p>
+                    
+                    <div class="button-group" style="margin-top: 30px;">
+                        <a href="https://bluv-developer.github.io/Kinders/Programs" class="corner-btn programs">
+                            <i class="fas fa-tasks"></i> View Programs
+                        </a>
+                        <a href="https://bluv-developer.github.io/Kinders/Extra" class="corner-btn extra">
+                            <i class="fas fa-question-circle"></i> FAQs
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="join-form fade-in">
@@ -1106,8 +1340,9 @@
                     <ul class="footer-links">
                         <li><a href="https://bluv-developer.github.io/Kinders/"><i class="fas fa-home"></i> Home</a></li>
                         <li><a href="https://bluv-developer.github.io/Kinders/About"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="https://bluv-developer.github.io/Kinders/Programs"><i class="fas fa-tasks"></i> Programs</a></li>
                         <li><a href="https://bluv-developer.github.io/Kinders/Extra"><i class="fas fa-plus-circle"></i> Extra</a></li>
-                        <li><a href="#mission"><i class="fas fa-bullseye"></i> Our Mission</a></li>
+                        <li><a href="#leave-others"><i class="fas fa-exclamation-triangle"></i> Warnings</a></li>
                         <li><a href="#join"><i class="fas fa-user-plus"></i> Join Us</a></li>
                     </ul>
                 </div>
@@ -1120,6 +1355,7 @@
                         <li><a href="#"><i class="fas fa-hand-holding-heart"></i> Empathy and understanding</a></li>
                         <li><a href="#"><i class="fas fa-user-graduate"></i> Student empowerment</a></li>
                         <li><a href="#"><i class="fas fa-shield-alt"></i> Creating safe spaces</a></li>
+                        <li><a href="#leave-others"><i class="fas fa-ban"></i> Rejecting negativity</a></li>
                     </ul>
                 </div>
             </div>
@@ -1230,9 +1466,8 @@
                 
                 if (navLink) {
                     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
                         navLink.classList.add('active');
-                    } else {
-                        navLink.classList.remove('active');
                     }
                 }
             });
@@ -1245,7 +1480,7 @@
         const currentUrl = window.location.href;
         
         // If we're on the home page, make home link scroll to top
-        if (currentUrl.includes('Kinders') && !currentUrl.includes('Kinders/About') && !currentUrl.includes('Kinders/Extra')) {
+        if (currentUrl.includes('Kinders') && !currentUrl.includes('Kinders/About') && !currentUrl.includes('Kinders/Programs') && !currentUrl.includes('Kinders/Extra')) {
             homeLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     if (this.hash === '') {
@@ -1274,6 +1509,16 @@
             });
         });
         
+        // Add shake animation to warning button on hover
+        document.querySelectorAll('.corner-btn.warning').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.classList.add('shake');
+                setTimeout(() => {
+                    this.classList.remove('shake');
+                }, 500);
+            });
+        });
+        
         // Add pulse animation to CTA button
         const ctaButton = document.querySelector('.cta-button');
         setInterval(() => {
@@ -1292,6 +1537,15 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
+            
+            // Highlight current page in navigation
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('nav a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref.includes(currentPage) || (currentPage === '' && linkHref.includes('Kinders/'))) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
